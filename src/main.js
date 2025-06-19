@@ -1,28 +1,32 @@
 // main.js
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
-import router from './router'
 import App from './App.vue'
+import router from './router'
 import axios from 'axios'
+import { usePreferencesStore } from '@/stores/preferences'
 
-// Configuración global de axios
-axios.defaults.baseURL = 'http://localhost:3000' // Cambia si tu backend tiene otra URL
-
-axios.interceptors.request.use(config => {
+axios.defaults.baseURL = 'http://localhost:3000'
+axios.interceptors.request.use(cfg => {
   const token = localStorage.getItem('token')
-  if (token) {
-    config.headers.Authorization = `Bearer ${token}`
-  }
-  return config
-}, error => {
-  return Promise.reject(error)
+  if (token) cfg.headers.Authorization = `Bearer ${token}`
+  return cfg
 })
 
-const app = createApp(App)
+const app   = createApp(App)
+const pinia = createPinia()
 
-// Para que axios esté disponible en componentes como this.$axios
 app.config.globalProperties.$axios = axios
-
-app.use(createPinia())
+app.use(pinia)
 app.use(router)
-app.mount('#app')
+
+/* Montaje protegido con try/finally */
+;(async () => {
+  const prefStore = usePreferencesStore(pinia)
+  try {
+    await prefStore.fetch()          // ya no revienta si falla
+  } finally {
+    prefStore.applyTheme()           // aplica tema por defecto o el recibido
+    app.mount('#app')                // ¡la app SIEMPRE se monta!
+  }
+})()
