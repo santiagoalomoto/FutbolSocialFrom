@@ -14,6 +14,7 @@
     </nav>
 
     <div class="admin-section">
+      <Dashboard v-if="view === 'dashboard'" />
       <AdminTeams v-if="view === 'teams'" />
       <AdminPlayers v-if="view === 'players'" />
       <AdminReferees v-if="view === 'referees'" />
@@ -27,16 +28,18 @@
 <script setup>
 import { ref } from 'vue'
 
-import AdminTeams from '../components/admin/AdminTeams.vue'
-import AdminPlayers from '../components/admin/AdminPlayers.vue'
-import AdminReferees from '../components/admin/AdminReferees.vue'
-import AdminMatches from '../components/admin/AdminMatches.vue'
-import AdminNews from '../components/admin/AdminNews.vue'
-import AdminStandings from '../components/admin/AdminStandings.vue'
+import Dashboard from '../pages/admin/Dashboard.vue' // Ruta corregida, comentario JS válido
+import AdminTeams from '../pages/admin/AdminTeams.vue'
+import AdminPlayers from '../pages/admin/AdminPlayers.vue'
+import AdminReferees from '../pages/admin/AdminReferees.vue'
+import AdminMatches from '../pages/admin/AdminMatches.vue'
+import AdminNews from '../pages/admin/AdminNews.vue'
+import AdminStandings from '../pages/admin/AdminStandings.vue'
 
-const view = ref('teams')
+const view = ref('dashboard')
 
 const sections = [
+  { label: 'Dashboard', view: 'dashboard' },
   { label: 'Equipos', view: 'teams' },
   { label: 'Jugadores', view: 'players' },
   { label: 'Árbitros', view: 'referees' },
