@@ -1,49 +1,79 @@
-  import { createRouter, createWebHistory } from 'vue-router'
-  import { useUserStore } from '../stores/user'
-  import Login from '../pages/Login.vue'
-  import Teams from '../pages/Teams.vue'
-  import Admin from '../pages/Admin.vue'
-  import Players from '../pages/Players.vue'
-  import Matches from '../pages/Matches.vue'
-  import News from '../pages/News.vue'
-  import Standings from '../pages/Standings.vue'
-  import Register from '../pages/Register.vue'
-  import Profile from '../pages/Profile.vue'
+// src/router/index.js
+import { createRouter, createWebHistory } from 'vue-router'
+import { useUserStore } from '../stores/user'
 
-  const routes = [
-    { path: '/', redirect: '/login' },
-    { path: '/login', component: Login },
-    { path: '/register', component: Register },
-    { path: '/teams', component: Teams },
-    { path: '/players', component: Players },
-    { path: '/matches', component: Matches },
-    { path: '/news', component: News },
-    { path: '/standings', component: Standings },
-    { path: '/profile', component: Profile, meta: { requiresAuth: true } },
-    {
-      path: '/admin',
-      component: Admin,
-      meta: { requiresAuth: true, role: 'admin' }
-    }
-  ]
+import Login from '../pages/Login.vue'
+import Register from '../pages/Register.vue'
+import Teams from '../pages/Teams.vue'
+import Players from '../pages/Players.vue'
+import Matches from '../pages/Matches.vue'
+import News from '../pages/News.vue'
+import Standings from '../pages/Standings.vue'
+import Profile from '../pages/Profile.vue'
+import Admin from '../pages/Admin.vue'
 
-  const router = createRouter({
-    history: createWebHistory(),
-    routes,
-  })
+const routes = [
+  {
+    path: '/',
+    component: () => import('@/components/Home.vue') // asegúrate que existe
+  },
+  {
+    path: '/login',
+    component: Login
+  },
+  {
+    path: '/register',
+    component: Register
+  },
+  {
+    path: '/teams',
+    component: Teams
+  },
+  {
+    path: '/players',
+    component: Players
+  },
+  {
+    path: '/matches',
+    component: Matches
+  },
+  {
+    path: '/news',
+    component: News
+  },
+  {
+    path: '/standings',
+    component: Standings
+  },
+  {
+    path: '/profile',
+    component: Profile,
+    meta: { requiresAuth: true }
+  },
+  {
+    path: '/admin',
+    component: Admin,
+    meta: { requiresAuth: true, role: 'admin' }
+  }
+]
 
-  router.beforeEach((to, from, next) => {
-    const store = useUserStore()
-    const requiresAuth = to.meta.requiresAuth
-    const allowedRole = to.meta.role
+const router = createRouter({
+  history: createWebHistory(),
+  routes,
+})
 
-    if (requiresAuth && !store.token) {
-      next('/login')
-    } else if (allowedRole && store.user?.role !== allowedRole) {
-      next('/teams')
-    } else {
-      next()
-    }
-  })
+router.beforeEach((to, from, next) => {
+  const store = useUserStore()
+  const requiresAuth = to.meta.requiresAuth
+  const allowedRole = to.meta.role
 
-  export default router
+  if (requiresAuth && !store.token) {
+    next('/login')
+  } else if (allowedRole && store.user?.role !== allowedRole) {
+    next('/teams')
+  } else {
+    next()
+  }
+})
+
+export default router

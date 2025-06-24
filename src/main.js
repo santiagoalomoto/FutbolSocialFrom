@@ -1,4 +1,5 @@
-// main.js
+// src/main.js
+import './assets/tailwind.css';
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 import App from './App.vue'
@@ -20,13 +21,12 @@ app.config.globalProperties.$axios = axios
 app.use(pinia)
 app.use(router)
 
-/* Montaje protegido con try/finally */
 ;(async () => {
   const prefStore = usePreferencesStore(pinia)
   try {
-    await prefStore.fetch()          // ya no revienta si falla
+    await prefStore.fetch()
   } finally {
-    prefStore.applyTheme()           // aplica tema por defecto o el recibido
-    app.mount('#app')                // ¡la app SIEMPRE se monta!
+    prefStore.applyTheme()
+    app.mount('#app')
   }
 })()
