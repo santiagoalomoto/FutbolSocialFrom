@@ -1,15 +1,10 @@
 <template>
   <div>
-    <Navbar v-if="isLoggedIn" />
-    <router-view />
+    <Navbar /> <!-- Muestra el navbar en todas las vistas -->
+    <router-view /> <!-- Aquí se cargan las páginas según la ruta -->
   </div>
 </template>
 
 <script setup>
-import { computed } from 'vue'
-import { useUserStore } from './stores/user'
-import Navbar from './components/Navbar.vue' // puedes crear uno simple
-
-const userStore = useUserStore()
-const isLoggedIn = computed(() => userStore.token !== null)
+import Navbar from '@/components/Navbar.vue'
 </script>
