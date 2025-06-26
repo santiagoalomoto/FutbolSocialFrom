@@ -9,13 +9,12 @@
         <tr>
           <th>#</th>
           <th>Equipo</th>
+          <th>Nombre</th>
           <th>PJ</th>
-          <th>PG</th>
-          <th>PE</th>
-          <th>PP</th>
-          <th>GF</th>
-          <th>GC</th>
-          <th>Dif</th>
+          <th>G</th>
+          <th>E</th>
+          <th>P</th>
+          <th>DG</th>
           <th>Pts</th>
         </tr>
       </thead>
@@ -59,20 +58,22 @@ onMounted(async () => {
 <style scoped>
 .standings-container {
   padding: 2rem;
-  max-width: 900px;
+  max-width: 1100px;
   margin: auto;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .title {
   font-size: 2rem;
-  color: #2d3748;
-  margin-bottom: 1rem;
+  color: #405163;
+  margin-bottom: 1.5rem;
   text-align: center;
+  font-weight: 700;
 }
 
 .loading {
-  font-size: 1.2rem;
-  color: #666;
+  font-size: 1.1rem;
+  color: #444;
   text-align: center;
   margin-top: 2rem;
 }
@@ -80,30 +81,34 @@ onMounted(async () => {
 .standings-table {
   width: 100%;
   border-collapse: collapse;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  border-radius: 8px;
+  border-radius: 12px;
   overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  background-color: white;
+  font-size: 0.95rem;
+  color: #333;
+}
+
+.standings-table thead {
+  background-color: #ccced1;
+  color: rgb(0, 0, 0);
+  font-weight: 600;
 }
 
 .standings-table th,
 .standings-table td {
-  padding: 0.75rem 1rem;
+  padding: 10px 14px;
   text-align: center;
-  border-bottom: 1px solid #e2e8f0;
-}
-
-.standings-table thead {
-  background-color: #3182ce;
-  color: white;
-  font-weight: 600;
+  border-top: 1px solid #e2dddd;
 }
 
 .standings-table tbody tr:nth-child(even) {
-  background-color: #f7fafc;
+  background-color: #f7f7f7;
 }
 
 .standings-table tbody tr:hover {
-  background-color: #bee3f8;
+  background-color: #e0f1ff;
   cursor: default;
+  transition: background-color 0.2s ease;
 }
 </style>
