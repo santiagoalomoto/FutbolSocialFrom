@@ -9,9 +9,10 @@
       <router-link to="/players">Jugadores</router-link>
       <router-link to="/matches">Partidos</router-link>
       <router-link to="/news">Noticias</router-link>
+      <router-link to="/refeeres">Arbitros</router-link>
       <router-link to="/standings">Posiciones</router-link>
       <router-link v-if="user?.role === 'admin'" to="/admin">Admin</router-link>
-      
+
       <button @click="logout" class="logout-button">Cerrar sesión</button>
     </div>
   </nav>
@@ -37,7 +38,8 @@ const logout = () => {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #1a202c; /* más oscuro */
+  background-color: #1a202c;
+  /* más oscuro */
   color: white;
   padding: 1rem 2rem;
   flex-wrap: wrap;
