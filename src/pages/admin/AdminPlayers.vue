@@ -31,6 +31,7 @@
           <tr>
             <th>ID</th>
             <th>Nombre</th>
+            <th>Foto</th>          
             <th>Número</th>
             <th>Posición</th>
             <th>Equipo</th>
@@ -44,6 +45,13 @@
           <tr v-for="player in players" :key="player.id">
             <td>{{ player.id }}</td>
             <td>{{ player.name }}</td>
+            <td class="p-3">
+              <img
+                :src="player.photo_url"
+                alt="logo"
+                class="w-10 h-10 object-contain mx-auto"
+              />
+            </td>
             <td>{{ player.number }}</td>
             <td>{{ player.position }}</td>
             <td>{{ player.team?.name }}</td>

@@ -1,44 +1,77 @@
 <template>
-  <div class="admin-teams-container">
-    <h2 class="title">⚽ Administrar Equipos</h2>
+  <div class="max-w-5xl mx-auto px-4 py-10">
+    <h2 class="text-3xl font-bold text-center text-gray-800 mb-8">⚽ Administrar Equipos</h2>
 
-    <form @submit.prevent="handleSubmit" class="form">
-      <input v-model="form.name" type="text" placeholder="Nombre del equipo" required />
-      <input v-model="form.logo_url" type="text" placeholder="Logo URL" />
-      <select v-model="form.division" required>
+    <!-- Formulario -->
+    <form @submit.prevent="handleSubmit" class="bg-gray-100 rounded-lg p-6 flex flex-wrap gap-4 mb-10">
+      <input
+        v-model="form.name"
+        type="text"
+        placeholder="Nombre del equipo"
+        required
+        class="flex-1 min-w-[200px] p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
+      />
+      <input
+        v-model="form.logo_url"
+        type="text"
+        placeholder="Logo URL"
+        class="flex-1 min-w-[200px] p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
+      />
+      <select
+        v-model="form.division"
+        required
+        class="flex-1 min-w-[200px] p-3 border border-gray-300 rounded-md bg-white focus:outline-none focus:ring-2 focus:ring-blue-400"
+      >
         <option disabled value="">División</option>
         <option>Primera División</option>
         <option>Segunda División</option>
       </select>
 
-      <div class="form-buttons">
-        <button type="submit" class="btn btn-submit">{{ editing ? 'Actualizar' : 'Crear' }}</button>
-        <button v-if="editing" @click.prevent="cancelEdit" class="btn btn-cancel">Cancelar</button>
+      <!-- Botones -->
+      <div class="w-full flex gap-4 mt-2">
+        <button
+          type="submit"
+          class="bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700 transition"
+        >
+          {{ editing ? 'Actualizar' : 'Crear' }}
+        </button>
+        <button
+          v-if="editing"
+          @click.prevent="cancelEdit"
+          class="bg-red-600 text-white px-6 py-2 rounded-md hover:bg-red-700 transition"
+        >
+          Cancelar
+        </button>
       </div>
     </form>
 
-    <div class="table-wrapper">
-      <table class="team-table">
-        <thead>
+    <!-- Tabla -->
+    <div class="overflow-x-auto">
+      <table class="w-full text-sm text-center bg-white border border-gray-200 rounded-lg shadow-md">
+        <thead class="bg-gray-200 text-gray-800 font-semibold">
           <tr>
-            <th>ID</th>
-            <th>Logo</th>
-            <th>Nombre</th>
-            <th>División</th>
-            <th>Acciones</th>
+            <th class="p-3 border">ID</th>
+            <th class="p-3 border">Logo</th>
+            <th class="p-3 border">Nombre</th>
+            <th class="p-3 border">División</th>
+            <th class="p-3 border">Acciones</th>
           </tr>
         </thead>
         <tbody>
-          <tr v-for="team in teams" :key="team.id">
-            <td>{{ team.id }}</td>
-            <td>
-              <img :src="team.logo_url" alt="logo" width="40" height="40" style="object-fit: contain;" />
+          <tr v-for="team in teams" :key="team.id" class="border-t hover:bg-gray-50">
+            <td class="p-3">{{ team.id }}</td>
+            <td class="p-3">
+              <img
+                :src="team.logo_url"
+                alt="logo"
+                class="w-10 h-10 object-contain mx-auto"
+              />
             </td>
-            <td>{{ team.name }}</td>
-            <td>{{ team.division }}</td>
-            <td>
-              <button @click="editTeam(team)" class="btn-icon">✏️</button>
-              <button @click="deleteTeam(team.id)" class="btn-icon">🗑️</button>
+            <td class="p-3">{{ team.name }}</td>
+            <td class="p-3">{{ team.division }}</td>
+            <td class="p-3 space-x-2">
+              <button @click="editTeam(team)" class="text-blue-600 hover:text-blue-800 text-lg">✏️</button>
+              <button @click="deleteTeam(team.id)" class="text-red-600 hover:text-red-800 text-lg">🗑️</button>
             </td>
           </tr>
         </tbody>
@@ -97,102 +130,3 @@ const resetForm = () => {
 
 onMounted(fetchTeams)
 </script>
-
-<style scoped>
-.admin-teams-container {
-  max-width: 1000px;
-  margin: auto;
-  padding: 2rem;
-}
-
-.title {
-  font-size: 2rem;
-  text-align: center;
-  margin-bottom: 1.5rem;
-  color: #2d3748;
-}
-
-.form {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.75rem;
-  background-color: #f9fafb;
-  padding: 1rem;
-  border-radius: 0.5rem;
-  margin-bottom: 2rem;
-}
-
-.form input,
-.form select {
-  flex: 1 1 200px;
-  padding: 0.6rem;
-  border: 1px solid #cbd5e0;
-  border-radius: 0.375rem;
-  font-size: 1rem;
-}
-
-.form-buttons {
-  display: flex;
-  gap: 1rem;
-  flex-basis: 100%;
-  margin-top: 0.5rem;
-}
-
-.btn {
-  padding: 0.6rem 1.2rem;
-  font-size: 1rem;
-  border: none;
-  border-radius: 0.375rem;
-  cursor: pointer;
-  transition: background 0.2s ease;
-}
-
-.btn-submit {
-  background-color: #3182ce;
-  color: white;
-}
-.btn-submit:hover {
-  background-color: #2b6cb0;
-}
-
-.btn-cancel {
-  background-color: #e53e3e;
-  color: white;
-}
-.btn-cancel:hover {
-  background-color: #c53030;
-}
-
-.table-wrapper {
-  overflow-x: auto;
-}
-
-.team-table {
-  width: 100%;
-  border-collapse: collapse;
-  background-color: #fff;
-  border-radius: 0.5rem;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
-}
-
-.team-table th,
-.team-table td {
-  padding: 0.75rem;
-  border: 1px solid #e2e8f0;
-  text-align: center;
-  font-size: 0.95rem;
-}
-
-.team-table th {
-  background-color: #edf2f7;
-  color: #2d3748;
-  font-weight: 600;
-}
-
-.btn-icon {
-  background: none;
-  border: none;
-  font-size: 1.2rem;
-  cursor: pointer;
-}
-</style>
