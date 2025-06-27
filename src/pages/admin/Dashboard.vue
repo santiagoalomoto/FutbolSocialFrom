@@ -16,10 +16,16 @@
 
     <div class="recent-container">
       <div class="recent-box">
-        <h3>👥 Últimos usuarios registrados</h3>
+        <h3>📰 Últimas noticias</h3>
         <ul>
-          <li v-for="user in stats.recent.users" :key="user.id">
-            {{ user.email }}
+          <li v-for="news in newsList" :key="news.id">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+              <strong>{{ news.title }}</strong>
+              <span style="color:#888; font-size:0.95em;">{{ formatDate(news.date) }}</span>
+            </div>
+            <div v-if="news.summary || news.content" style="font-size:0.98em; color:#444; margin-top:0.2em;">
+              {{ news.summary || news.content }}
+            </div>
           </li>
         </ul>
       </div>
@@ -45,6 +51,8 @@ const stats = ref({
   recent: { users: [], matches: [] }
 })
 
+const newsList = ref([])
+
 const iconMap = {
   users: 'fas fa-user',
   players: 'fas fa-futbol',
@@ -66,7 +74,6 @@ function formatKey(key) {
   return map[key] || key
 }
 
-
 function formatDate(date) {
   return new Date(date).toLocaleDateString()
 }
@@ -84,7 +91,19 @@ async function fetchStats() {
   }
 }
 
-onMounted(fetchStats)
+async function fetchNews() {
+  try {
+    const res = await axios.get('http://localhost:3000/news')
+    newsList.value = res.data.slice(0, 5) // Solo las 5 últimas noticias
+  } catch (error) {
+    console.error('Error al cargar noticias:', error)
+  }
+}
+
+onMounted(() => {
+  fetchStats()
+  fetchNews()
+})
 </script>
 
 <style scoped>
@@ -186,5 +205,4 @@ h1 {
   font-weight: 500;
   color: #333;
 }
-
 </style>
