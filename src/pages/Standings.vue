@@ -59,15 +59,17 @@ onMounted(async () => {
 <style scoped>
 .standings-container {
   padding: 2rem;
-  max-width: 900px;
+  max-width: 950px;
   margin: auto;
 }
 
 .title {
   font-size: 2rem;
-  color: #2d3748;
+  color: #3d0066;
   margin-bottom: 1rem;
   text-align: center;
+  font-weight: bold;
+  text-shadow: 0 2px 8px #e0c3fc;
 }
 
 .loading {
@@ -79,31 +81,82 @@ onMounted(async () => {
 
 .standings-table {
   width: 100%;
-  border-collapse: collapse;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  border-radius: 8px;
+  border-collapse: separate;
+  border-spacing: 0;
+  box-shadow: 0 2px 12px rgba(61,0,102,0.08);
+  border-radius: 12px;
   overflow: hidden;
+  background: #fff;
+  border: 3px solid #ffd600;
 }
 
 .standings-table th,
 .standings-table td {
-  padding: 0.75rem 1rem;
+  padding: 0.7rem 0.5rem;
   text-align: center;
-  border-bottom: 1px solid #e2e8f0;
+  border-bottom: 2px solid #ffd600;
+  font-size: 1.08rem;
 }
 
-.standings-table thead {
-  background-color: #3182ce;
-  color: white;
-  font-weight: 600;
+.standings-table th {
+  background-color: #4b006e;
+  color: #ffd600;
+  font-weight: 700;
+  border-bottom: 4px solid #ffd600;
+  font-size: 1.1rem;
+  letter-spacing: 1px;
 }
 
 .standings-table tbody tr:nth-child(even) {
-  background-color: #f7fafc;
+  background-color: #f9f6ff;
+}
+
+.standings-table tbody tr:nth-child(odd) {
+  background-color: #fff;
+}
+
+.standings-table tbody tr {
+  transition: transform 0.18s cubic-bezier(.4,2.3,.3,1), box-shadow 0.18s;
+  cursor: pointer;
 }
 
 .standings-table tbody tr:hover {
-  background-color: #bee3f8;
-  cursor: default;
+  background-color: #ffe066;
+  transform: scale(1.04);
+  box-shadow: 0 4px 18px #ffd60055;
+  z-index: 2;
+}
+
+.standings-table td:first-child,
+.standings-table th:first-child {
+  color: #4b006e;
+  font-weight: bold;
+}
+
+.standings-table td {
+  color: #3d0066;
+  font-weight: 500;
+}
+
+.standings-table td:nth-child(2) {
+  text-align: left;
+  padding-left: 1rem;
+  font-weight: bold;
+  letter-spacing: 0.5px;
+}
+
+.standings-table td:last-child,
+.standings-table th:last-child {
+  font-weight: bold;
+}
+
+@media (max-width: 700px) {
+  .standings-container {
+    padding: 0.5rem;
+  }
+  .standings-table th, .standings-table td {
+    padding: 0.4rem 0.2rem;
+    font-size: 0.95rem;
+  }
 }
 </style>

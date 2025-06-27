@@ -90,7 +90,7 @@ const handleLogin = async () => {
     if (userStore.user.role === 'admin') {
       router.push('/admin')
     } else {
-      router.push('/teams')
+      router.push('/') // ← Redirige a Home.vue
     }
   } catch (err) {
     alert('Login inválido')
