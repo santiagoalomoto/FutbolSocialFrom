@@ -438,11 +438,6 @@ h3 {
   flex-direction: column;
 }
 
-.player-photo {
-  width: 150px;
-  height: 150px;
-  border-radius: 50%;
-}
 
 
 
@@ -511,12 +506,6 @@ h3 {
   justify-content: space-around;
 }
 
-.card {
-  padding: 20px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  text-align: center;
-}
 
 .clasificaciones table {
   width: 100%;
@@ -534,12 +523,7 @@ h3 {
 
 /* arbitros */
 
-.referee-photo {
-  width: 150px;
-  height: 150px;
-  border-radius: 50%;
-  border: 3px solid var(--primary-color);
-}
+
 
 /* login */
 .login-container {

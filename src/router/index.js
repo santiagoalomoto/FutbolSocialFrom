@@ -5,6 +5,7 @@ import { useUserStore } from '../stores/user'
 import Login from '../pages/Login.vue'
 import Register from '../pages/Register.vue'
 import Teams from '../pages/Teams.vue'
+import Refeeres from '../pages/Refeeres.vue'
 import Players from '../pages/Players.vue'
 import Matches from '../pages/Matches.vue'
 import News from '../pages/News.vue'
@@ -40,6 +41,10 @@ const routes = [
   {
     path: '/news',
     component: News
+  },
+  {
+    path: '/refeeres',
+    component: Refeeres
   },
   {
     path: '/standings',
